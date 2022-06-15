@@ -1,5 +1,5 @@
-import connectToMongodb from '../../backend/db/connect-to-mongodb'
-import Todo from '../../backend/model/Todo'
+import connectToMongodb from '../../src/api/db/connect-to-mongodb'
+import Todo from '../../src/api/model/Todo'
 
 const handler = async (request, response) => {
   await connectToMongodb()
