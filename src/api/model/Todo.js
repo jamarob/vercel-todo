@@ -3,8 +3,8 @@ const { Schema, model } = mongoose
 
 const schema = new Schema(
   {
-    description: { type: String },
-    done: { type: Boolean },
+    description: { type: String, required: true },
+    done: { type: Boolean, required: true },
   },
   {
     versionKey: false,
