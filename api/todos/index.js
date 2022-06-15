@@ -1,24 +1,27 @@
-import connectToMongodb from '../../backend/db/connect-to-mongodb'
-import Todo from '../../backend/model/Todo'
+import connectToMongodb from '../../src/api/db/connect-to-mongodb'
+import Todo from '../../src/api/model/Todo'
 
-const handler = async (request, response) => {
-  await connectToMongodb()
+const enclosingHandler = async (request, response) => {
+    try {
+        await connectToMongodb()
 
-  const { method } = request
+        const {method} = request
 
-  if (method === 'GET') {
-    const todos = await Todo.find()
-    return response.status(200).json(todos)
-  }
+        if (method === 'GET') {
+            const allTodos = await Todo.find()
+            return response.status(200).json(allTodos)
+        }
 
-  if (method === 'POST') {
-    const { description } = request.body
-    const newTodo = new Todo({ description, done: false })
-    await newTodo.save()
-    return response.status(200).json(newTodo)
-  }
+        if (method === 'POST') {
+            const newTodo = await Todo.create(request.body)
+            return response.status(200).json(newTodo)
+        }
 
-  response.status(501).json(`Not implemented`)
+    } catch (error) {
+        return response.status(400).json(error)
+    }
+
+    response.status(405).send()
 }
 
-export default handler
+export default enclosingHandler

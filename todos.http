@@ -1,0 +1,46 @@
+@host = http://localhost:3000
+@todoid = some-todo-id
+
+### Get all todos
+
+GET {{host}}/api/todos
+
+### Create new todo
+
+POST {{host}}/api/todos
+Content-Type: application/json
+
+{
+  "description": "My third todo",
+  "done": false
+}
+
+### Get todo by id
+
+GET {{host}}/api/todos/{{todoid}}
+
+
+### (partially) Update todo by id
+
+PATCH {{host}}/api/todos/{{todoid}}
+Content-Type: application/json
+
+{
+  "done": false
+}
+
+### Update (complete) todo by id
+
+PUT {{host}}/api/todos/{{todoid}}
+Content-Type: application/json
+
+{
+  "description": "Changed todo",
+  "done": false
+  
+}
+
+### Delete todo by id
+
+DELETE {{host}}/api/todos/{{todoid}}
+
